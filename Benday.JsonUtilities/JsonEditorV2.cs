@@ -253,18 +253,16 @@ public class JsonEditorV2
 
     public void SetSiblingValue(SiblingValueArguments args)
     {
-        throw new NotImplementedException();
+        var parentNode = FindParentNodeBySiblingValue(args);
 
-        //var parentNode = FindParentNodeBySiblingValue(args);
-
-        //if (parentNode == null)
-        //{
-        //    return;
-        //}
-        //else
-        //{
-        //    parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
-        //}
+        if (parentNode == null)
+        {
+            return;
+        }
+        else
+        {
+            parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
+        }
     }
     
     private JsonNode? FindParentNodeBySiblingValue(SiblingValueArguments args)
