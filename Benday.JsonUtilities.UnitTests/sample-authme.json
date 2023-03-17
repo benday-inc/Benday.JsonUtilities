@@ -1,0 +1,27 @@
+[
+  {
+    "access_token": "access_token_value",
+    "expires_on": "2023-03-17T13:24:57.4807320Z",
+    "id_token": "id_token_value",
+    "provider_name": "aad",
+    "user_claims": [
+      {
+        "typ": "aud",
+        "val": "aud-value"
+      },
+      {
+        "typ": "iat",
+        "val": "iat-value"
+      },
+      {
+        "typ": "nbf",
+        "val": "nbf-value"
+      },
+      {
+        "typ": "exp",
+        "val": "exp-value"
+      }      
+    ],
+    "user_id": "user_id_value"
+  }
+]

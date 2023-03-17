@@ -4,6 +4,8 @@ namespace Benday.JsonUtilities.UnitTests;
 
 public class UnitTestBase
 {
+    private const string TempFolderName = "Benday.JsonUtilities.UnitTests";
+
     public TestContext TestContext
     {
         get; set;
@@ -26,7 +28,7 @@ public class UnitTestBase
         string path =
             Path.Combine(
                 Path.GetTempPath(),
-                "bendaybuildutilitiescore",
+                TempFolderName,
                 DateTime.UtcNow.Ticks.ToString(),
             TestContext.FullyQualifiedTestClassName,
             TestContext.TestName,
@@ -53,7 +55,7 @@ public class UnitTestBase
         string path =
             Path.Combine(
                 Path.GetTempPath(),
-                "bendaybuildutilitiescore",
+                TempFolderName,
                 DateTime.UtcNow.Ticks.ToString(),
             TestContext.FullyQualifiedTestClassName,
             TestContext.TestName,
@@ -71,6 +73,32 @@ public class UnitTestBase
         return path;
     }
 
+   
+    protected string CreateSampleAuthMeFile()
+    {
+        string filename = "sample-authme.json";
+
+        string path =
+            Path.Combine(
+                Path.GetTempPath(),
+                TempFolderName,
+                DateTime.UtcNow.Ticks.ToString(),
+            TestContext.FullyQualifiedTestClassName,
+            TestContext.TestName,
+            filename);
+
+        string dirPath = Path.GetDirectoryName(path);
+
+        if (Directory.Exists(dirPath) == false)
+        {
+            Directory.CreateDirectory(dirPath);
+        }
+
+        File.WriteAllText(path, UnitTestResources.SampleAuthMe);
+
+        return path;
+    }
+
     protected string CreateSampleConfigFile()
     {
         string filename = "sample-config-file.xml";
@@ -78,7 +106,7 @@ public class UnitTestBase
         string path =
             Path.Combine(
                 Path.GetTempPath(),
-                "bendaybuildutilitiescore",
+                TempFolderName,
                 DateTime.UtcNow.Ticks.ToString(),
             TestContext.FullyQualifiedTestClassName,
             TestContext.TestName,

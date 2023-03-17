@@ -1,4 +1,6 @@
-﻿namespace Benday.JsonUtilities.UnitTests;
+﻿using Newtonsoft.Json.Linq;
+
+namespace Benday.JsonUtilities.UnitTests;
 
 [TestClass]
 public class JsonEditorFixture : UnitTestBase
@@ -26,7 +28,7 @@ public class JsonEditorFixture : UnitTestBase
         Console.WriteLine(_PathToSampleConfigFile);
 
         _SystemUnderTest = new JsonEditor(_PathToSampleConfigFile);
-    }
+    }   
 
     private JsonEditor _SystemUnderTest;
     public JsonEditor SystemUnderTest
@@ -238,5 +240,37 @@ public class JsonEditorFixture : UnitTestBase
             "Logging", "LogLevel", "Default");
 
         Assert.AreEqual<string>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
+    public void GetSiblingValue()
+    {
+        // arrange
+        _PathToSampleConfigFile = CreateSampleAuthMeFile();
+   
+        Console.WriteLine(_PathToSampleConfigFile);
+
+        var contents = File.ReadAllText(_PathToSampleConfigFile);
+
+        var jsonArray = JArray.Parse(contents);
+
+        _SystemUnderTest = new JsonEditor(jsonArray[0].ToString(), true);
+
+        var expected = "iat-value";
+
+        var args = new SiblingValueArguments
+        {
+            SiblingSearchKey = "typ",
+            SiblingSearchValue = "iat",
+
+            DesiredNodeKey = "val",
+            PathArguments = new[] { "user_claims" }
+        };
+
+        // act
+        var actual = SystemUnderTest.GetSiblingValue(args);
+
+        // assert
+        Assert.AreEqual<string>(expected, actual, "Value was wrong");
     }
 }

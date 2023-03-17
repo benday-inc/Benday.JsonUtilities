@@ -61,6 +61,17 @@ namespace Benday.JsonUtilities.UnitTests {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to [
+        ///  {
+        ///    &quot;access_token&quot;: &quot;eyJ0eXAiOiJKV1QiLCJub25jZSI6IjJQamg5OTg2bVZyMlJlSjVTYWhaZ2ZKWXlfT05FVi1jV0FXdkFrOTRsUDQiLCJhbGciOiJSUzI1NiIsIng1dCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC9jNGZmNWQ4NS1lNTJmLTQzMjMtYWQwYi05MjRkYmIzYTc0MGMvIiwiaWF0IjoxNjc5MDU0NTU3LCJuYmYiOjE2NzkwNTQ1NTcsImV4cCI6MTY3OTA1OTQ5OCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFWUUFxLzhUQUFBQWlWcH [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string SampleAuthMe {
+            get {
+                return ResourceManager.GetString("SampleAuthMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;configuration&gt;
         ///  &lt;!--
