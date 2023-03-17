@@ -4,7 +4,29 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Title>Benday.JsonUtilities</Title>
+        <Description>A collection of classes for working with JSON.</Description>
+        <Copyright>2023</Copyright>
+        <PackageProjectUrl>https://github.com/benday-inc/Benday.JsonUtilities</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/benday-inc/Benday.JsonUtilities.git</RepositoryUrl>
+        <PackageIcon>bdc_mark_128_128.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <AssemblyVersion>4.0.0.0</AssemblyVersion>
+        <Version>$(VersionPrefix)4.0.0</Version>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="..\bdc_mark_128_128.png">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Include="..\README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
 
     <ItemGroup>
 
