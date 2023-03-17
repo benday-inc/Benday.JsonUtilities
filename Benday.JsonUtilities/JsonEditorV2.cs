@@ -161,24 +161,46 @@ public class JsonEditorV2
 
     public void SetValue(string nodeValue, params string[] nodes)
     {
-        throw new InvalidOperationException($"Nope.");
-        //if (string.IsNullOrEmpty(nodeValue))
-        //    throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
-        //if (nodes == null || nodes.Length == 0)
-        //    throw new ArgumentException(
-        //    $"{nameof(nodes)} is null or empty.", nameof(nodes));
+        if (string.IsNullOrEmpty(nodeValue))
+            throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        //var match = GetElement(nodes);
+        var match = GetNode(nodes);
 
-        //if (match != null && match.HasValue == true)
-        //{
-        //    match.Replace(new JValue(nodeValue));
-        //}
-        //else
-        //{
-        //    CreateNodeStructure(nodes);
-        //    SetValue(nodeValue, nodes);
-        //}        
+        if (match == null)
+        {
+            throw new NotImplementedException();
+        }
+        else
+        {
+            var propertyName = nodes.Last();
+
+            var parent = match.Parent;
+
+            if (parent == null)
+            {
+                throw new InvalidOperationException($"Parent is null");
+            }
+
+            parent[propertyName] = nodeValue;
+
+            // match = nodeValue;
+            Console.WriteLine($"message");
+        }
+
+        /*
+        if (match != null && match.HasValue == true)
+        {
+            match.Replace(new JValue(nodeValue));
+        }
+        else
+        {
+            CreateNodeStructure(nodes);
+            SetValue(nodeValue, nodes);
+        }
+        */
     }
     
 
