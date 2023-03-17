@@ -13,7 +13,7 @@ public class JsonEditorV2
     private readonly JsonNode _rootNode;
     public JsonEditorV2(string filePath) : this(File.ReadAllText(filePath), true)
     {
-        
+
     }
 
     public JsonEditorV2(string json, bool loadFromString)
@@ -53,7 +53,7 @@ public class JsonEditorV2
         else
         {
             return node.ToString();
-        }        
+        }
     }
 
     private JsonNode? GetNode(params string[] nodes)
@@ -67,7 +67,7 @@ public class JsonEditorV2
         if (parent == null)
         {
             throw new InvalidOperationException($"Root node was null.");
-        }    
+        }
 
         JsonNode? node;
         bool success = false;
@@ -171,7 +171,7 @@ public class JsonEditorV2
 
         if (match == null)
         {
-            throw new NotImplementedException();
+            CreateNodeStructureAndSetValue(nodeValue, nodes);
         }
         else
         {
@@ -185,45 +185,48 @@ public class JsonEditorV2
             }
 
             parent[propertyName] = nodeValue;
-
-            // match = nodeValue;
-            Console.WriteLine($"message");
         }
-
-        /*
-        if (match != null && match.HasValue == true)
-        {
-            match.Replace(new JValue(nodeValue));
-        }
-        else
-        {
-            CreateNodeStructure(nodes);
-            SetValue(nodeValue, nodes);
-        }
-        */
     }
-    
 
-    /*
-    private JObject LoadJsonFromFile(string pathToFile)
+    private void CreateNodeStructureAndSetValue(string nodeValue, params string[] nodes)
     {
-        AssertFileExists(pathToFile);
+        if (string.IsNullOrEmpty(nodeValue))
+            throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        var jsonText = File.ReadAllText(pathToFile);
+        var parent = _rootNode;
 
-        var json = JObject.Parse(jsonText);
+        JsonNode? node;
+        bool success = false;
 
-        return json;
-    }
-
-    private void AssertFileExists(string pathToFile)
-    {
-        if (File.Exists(pathToFile) == false)
+        for (int index = 0; index < nodes.Length; index++)
         {
-            throw new FileNotFoundException("File not found.", pathToFile);
+            node = parent![nodes[index]];
+
+            if (node != null)
+            {
+                parent = node;
+            }
+            else
+            {
+                if (index == nodes.Length - 1)
+                {
+                    // set the value
+                    parent[nodes[index]] = nodeValue;
+                }
+                else
+                {
+                    node = new JsonObject();
+
+                    parent[nodes[index]] = node;
+
+                    parent = node;
+                }
+            }            
         }
     }
-    */
 
     public string GetSiblingValue(SiblingValueArguments args)
     {
