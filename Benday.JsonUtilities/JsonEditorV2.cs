@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Benday.JsonUtilities;
 public class JsonEditorV2
 {
-    private readonly JsonElement _json;
-
+    private readonly JsonNode _rootNode;
     public JsonEditorV2(string filePath) : this(File.ReadAllText(filePath), true)
     {
         
@@ -26,12 +26,16 @@ public class JsonEditorV2
         if (string.IsNullOrEmpty(json))
             throw new ArgumentException($"{nameof(json)} is null or empty.", nameof(json));
 
-        _json = JsonDocument.Parse(json).RootElement;
-    }
+        var temp = JsonObject.Parse(json);
 
-    private JsonEditorV2(JsonElement fromObject)
-    {
-        _json = fromObject;
+        if (temp != null)
+        {
+            _rootNode = temp;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Could not parse JsonNode from json.");
+        }
     }
 
     public string? GetValue(params string[] nodes)
@@ -40,37 +44,46 @@ public class JsonEditorV2
             throw new ArgumentException(
             $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        var element = GetElement(nodes);
+        var node = GetNode(nodes);
 
-        if (element == null || element.HasValue == false)
+        if (node == null)
         {
             return null;
         }
         else
         {
-            return element.Value.GetString();
-        }
-
-        /*
-        var query = GetJsonQueryForNodes(nodes);
-
-        return GetValueUsingQuery(query.ToString());
-        */
+            return node.ToString();
+        }        
     }
 
-    private JsonElement? GetElement(params string[] nodes)
+    private JsonNode? GetNode(params string[] nodes)
     {
         if (nodes == null || nodes.Length == 0)
             throw new ArgumentException(
             $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        var parent = _json;
-        JsonElement element;
+        var parent = _rootNode;
+
+        if (parent == null)
+        {
+            throw new InvalidOperationException($"Root node was null.");
+        }    
+
+        JsonNode? node;
         bool success = false;
 
         for (int index = 0; index < nodes.Length; index++)
         {
-            success = parent.TryGetProperty(nodes[index], out element);
+            node = parent![nodes[index]];
+
+            if (node == null)
+            {
+                success = false;
+            }
+            else
+            {
+                success = true;
+            }
 
             if (success == false)
             {
@@ -79,37 +92,16 @@ public class JsonEditorV2
             else if (index == nodes.Length - 1)
             {
                 // found what we want
-                return element;
+                return node;
             }
             else
             {
                 // keep searching
-                parent = element;
+                parent = node;
             }
         }
 
         return null;
-    }
-
-    private string GetJsonQueryForNodes(params string[] nodes)
-    {
-        var needsPeriod = false;
-
-        var query = new StringBuilder();
-
-        foreach (var node in nodes)
-        {
-            if (needsPeriod == true)
-            {
-                query.Append(".");
-            }
-
-            query.Append(node);
-
-            needsPeriod = true;
-        }
-
-        return query.ToString();
     }
 
     /*
@@ -169,18 +161,16 @@ public class JsonEditorV2
 
     public void SetValue(string nodeValue, params string[] nodes)
     {
-        throw new NotImplementedException();
+        throw new InvalidOperationException($"Nope.");
         //if (string.IsNullOrEmpty(nodeValue))
         //    throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
         //if (nodes == null || nodes.Length == 0)
         //    throw new ArgumentException(
         //    $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        //var query = GetJsonQueryForNodes(nodes);
+        //var match = GetElement(nodes);
 
-        //var match = GetJToken(_json, query);
-
-        //if (match != null)
+        //if (match != null && match.HasValue == true)
         //{
         //    match.Replace(new JValue(nodeValue));
         //}
@@ -188,9 +178,7 @@ public class JsonEditorV2
         //{
         //    CreateNodeStructure(nodes);
         //    SetValue(nodeValue, nodes);
-        //}
-
-        //WriteJsonFile();
+        //}        
     }
     
 
