@@ -273,4 +273,38 @@ public class JsonEditorFixture : UnitTestBase
         // assert
         Assert.AreEqual<string>(expected, actual, "Value was wrong");
     }
+
+    [TestMethod]
+    public void SetSiblingValue_UpdateExisting()
+    {
+        // arrange
+        _PathToSampleConfigFile = CreateSampleAuthMeFile();
+
+        Console.WriteLine(_PathToSampleConfigFile);
+
+        var contents = File.ReadAllText(_PathToSampleConfigFile);
+
+        var jsonArray = JArray.Parse(contents);
+
+        _SystemUnderTest = new JsonEditor(jsonArray[0].ToString(), true);
+
+        var expected = "iat-value-new";
+
+        var args = new SiblingValueArguments
+        {
+            SiblingSearchKey = "typ",
+            SiblingSearchValue = "iat",
+
+            DesiredNodeKey = "val",
+            PathArguments = new[] { "user_claims" },
+            DesiredNodeValue = expected
+        };
+
+        // act
+        SystemUnderTest.SetSiblingValue(args);
+
+        // assert
+        var actual = SystemUnderTest.GetSiblingValue(args);
+        Assert.AreEqual<string>(expected, actual, "Value was wrong");
+    }    
 }
