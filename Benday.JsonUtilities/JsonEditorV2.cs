@@ -228,29 +228,27 @@ public class JsonEditorV2
         }
     }
 
-    public string GetSiblingValue(SiblingValueArguments args)
+    public string? GetSiblingValue(SiblingValueArguments args)
     {
-        throw new NotImplementedException();
+        var parentNode = FindParentNodeBySiblingValue(args);
 
-        //var parentNode = FindParentNodeBySiblingValue(args);
+        if (parentNode == null)
+        {
+            return null;
+        }
+        else
+        {
+            var match = parentNode[args.DesiredNodeKey];
 
-        //if (parentNode == null)
-        //{
-        //    return null;
-        //}
-        //else
-        //{
-        //    var match = parentNode[args.DesiredNodeKey];
-
-        //    if (match == null)
-        //    {
-        //        return null;
-        //    }
-        //    else
-        //    {
-        //        return match.Value<string>();
-        //    }
-        //}
+            if (match == null)
+            {
+                return null;
+            }
+            else
+            {
+                return match.ToString();                
+            }
+        }
     }
 
     public void SetSiblingValue(SiblingValueArguments args)
@@ -268,40 +266,62 @@ public class JsonEditorV2
         //    parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
         //}
     }
-
-    /*
-    private JToken FindParentNodeBySiblingValue(SiblingValueArguments args)
+    
+    private JsonNode? FindParentNodeBySiblingValue(SiblingValueArguments args)
     {
-        var collectionMatch = GetJToken(
-            _json, GetJsonQueryForNodes(args.PathArguments));
+        var collectionMatch = GetNode(args.PathArguments);
 
         if (collectionMatch == null)
         {
             return null;
         }
-
-        var matches = collectionMatch.Children().ToList();
-
-        if (matches == null || matches.Count == 0)
+        else if (collectionMatch is JsonArray)
         {
-            return null;
-        }
-        else
-        {
+            var matches = (JsonArray) collectionMatch;
+
             foreach (var item in matches)
             {
-                if (item.HasValues == true)
+                if (item == null)
                 {
-                    if (item[args.SiblingSearchKey] != null &&
-                        item[args.SiblingSearchKey].Value<string>() == args.SiblingSearchValue)
-                    {
-                        return item;
-                    }
+                    continue;
+                }
+                else if (item[args.SiblingSearchKey] != null &&
+                    item[args.SiblingSearchKey]!.ToString() == args.SiblingSearchValue)
+                {
+                    return item;
                 }
             }
 
             return null;
+        }        
+        else
+        {
+            return null;
         }
+
+        //collectionMatch.
+
+        //var matches = collectionMatch.Children().ToList();
+
+        //if (matches == null || matches.Count == 0)
+        //{
+        //    return null;
+        //}
+        //else
+        //{
+        //    foreach (var item in matches)
+        //    {
+        //        if (item.HasValues == true)
+        //        {
+        //            if (item[args.SiblingSearchKey] != null &&
+        //                item[args.SiblingSearchKey].Value<string>() == args.SiblingSearchValue)
+        //            {
+        //                return item;
+        //            }
+        //        }
+        //    }
+
+        //    return null;
+        //}
     }
-    */
 }
