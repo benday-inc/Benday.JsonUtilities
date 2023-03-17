@@ -84,6 +84,45 @@ public class JsonEditorV2Fixture : UnitTestBase
         Assert.AreEqual<string>(expected, actual, "Wrong value.");
     }
 
+    [TestMethod]
+    public void GetValue_ValueThatDoesntExist_Variation1()
+    {
+        InitializeWithPopulatedJson();
+
+        string? expected = null;
+
+        var actual = SystemUnderTest.GetValue(
+            "Logging", "LogLevel", "BogusPropertyName");
+
+        Assert.AreEqual<string>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
+    public void GetValue_ValueThatDoesntExist_Variation2()
+    {
+        InitializeWithPopulatedJson();
+
+        string? expected = null;
+
+        var actual = SystemUnderTest.GetValue(
+            "Logging", "LogLevel", "BogusPropertyName", "AnotherBogusPropertyName");
+
+        Assert.AreEqual<string>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
+    public void GetValue_ValueThatDoesntExist_Variation3()
+    {
+        InitializeWithPopulatedJson();
+
+        string? expected = null;
+
+        var actual = SystemUnderTest.GetValue(
+            "BogusPropertyName123", "LogLevel", "BogusPropertyName", "AnotherBogusPropertyName");
+
+        Assert.AreEqual<string>(expected, actual, "Wrong value.");
+    }
+
 
     [TestMethod]
     public void Json_NewValue_SetValue_OneLevel()

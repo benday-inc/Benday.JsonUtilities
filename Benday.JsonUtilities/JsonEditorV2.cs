@@ -4,26 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Benday.JsonUtilities;
 public class JsonEditorV2
 {
-    private readonly JObject _json;
-    private readonly string _pathToFile;
+    private readonly JsonElement _json;
 
-    public JsonEditorV2(string pathToFile)
+    public JsonEditorV2(string filePath) : this(File.ReadAllText(filePath), true)
     {
-        if (string.IsNullOrEmpty(pathToFile))
-            throw new ArgumentException($"{nameof(pathToFile)} is null or empty.", nameof(pathToFile));
-
-        _pathToFile = pathToFile;
-
-        AssertFileExists(_pathToFile);
-
-        _json = LoadJsonFromFile(_pathToFile);
+        
     }
 
     public JsonEditorV2(string json, bool loadFromString)
@@ -36,29 +26,69 @@ public class JsonEditorV2
         if (string.IsNullOrEmpty(json))
             throw new ArgumentException($"{nameof(json)} is null or empty.", nameof(json));
 
-        _pathToFile = null;
-
-        _json = JObject.Parse(json);
+        _json = JsonDocument.Parse(json).RootElement;
     }
 
-    public JsonEditorV2(JObject fromObject)
+    private JsonEditorV2(JsonElement fromObject)
     {
-        if (fromObject == null || fromObject.Count == 0)
-        {
-            throw new ArgumentException($"{nameof(fromObject)} is null or empty.", nameof(fromObject));
-        }
-
         _json = fromObject;
     }
 
-    public string GetValue(params string[] nodes)
+    public string? GetValue(params string[] nodes)
     {
         if (nodes == null || nodes.Length == 0)
             throw new ArgumentException(
             $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var element = GetElement(nodes);
+
+        if (element == null || element.HasValue == false)
+        {
+            return null;
+        }
+        else
+        {
+            return element.Value.GetString();
+        }
+
+        /*
         var query = GetJsonQueryForNodes(nodes);
 
         return GetValueUsingQuery(query.ToString());
+        */
+    }
+
+    private JsonElement? GetElement(params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var parent = _json;
+        JsonElement element;
+        bool success = false;
+
+        for (int index = 0; index < nodes.Length; index++)
+        {
+            success = parent.TryGetProperty(nodes[index], out element);
+
+            if (success == false)
+            {
+                return null;
+            }
+            else if (index == nodes.Length - 1)
+            {
+                // found what we want
+                return element;
+            }
+            else
+            {
+                // keep searching
+                parent = element;
+            }
+        }
+
+        return null;
     }
 
     private string GetJsonQueryForNodes(params string[] nodes)
@@ -82,6 +112,7 @@ public class JsonEditorV2
         return query.ToString();
     }
 
+    /*
     private void CreateNodeStructure(string[] nodes)
     {
         if (nodes == null || nodes.Length == 0)
@@ -134,69 +165,36 @@ public class JsonEditorV2
             }
         }
     }
+    */
 
     public void SetValue(string nodeValue, params string[] nodes)
     {
-        if (string.IsNullOrEmpty(nodeValue))
-            throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
-        if (nodes == null || nodes.Length == 0)
-            throw new ArgumentException(
-            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+        throw new NotImplementedException();
+        //if (string.IsNullOrEmpty(nodeValue))
+        //    throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
+        //if (nodes == null || nodes.Length == 0)
+        //    throw new ArgumentException(
+        //    $"{nameof(nodes)} is null or empty.", nameof(nodes));
 
-        var query = GetJsonQueryForNodes(nodes);
+        //var query = GetJsonQueryForNodes(nodes);
 
-        var match = GetJToken(_json, query);
+        //var match = GetJToken(_json, query);
 
-        if (match != null)
-        {
-            match.Replace(new JValue(nodeValue));
-        }
-        else
-        {
-            CreateNodeStructure(nodes);
-            SetValue(nodeValue, nodes);
-        }
+        //if (match != null)
+        //{
+        //    match.Replace(new JValue(nodeValue));
+        //}
+        //else
+        //{
+        //    CreateNodeStructure(nodes);
+        //    SetValue(nodeValue, nodes);
+        //}
 
-        WriteJsonFile();
+        //WriteJsonFile();
     }
+    
 
-    private void WriteJsonFile()
-    {
-        if (_pathToFile != null)
-        {
-            File.WriteAllText(
-                _pathToFile,
-                JsonConvert.SerializeObject(_json, Formatting.Indented));
-        }
-    }
-
-    public string ToJsonString()
-    {
-        return JsonConvert.SerializeObject(_json, Formatting.Indented);
-    }
-
-    private JToken GetJToken(JObject json, string query)
-    {
-        var match = json.SelectToken(query);
-
-        return match;
-    }
-
-    private string GetValueUsingQuery(string query)
-    {
-        var match = GetJToken(
-            _json, query);
-
-        if (match == null)
-        {
-            return null;
-        }
-        else
-        {
-            return match.Value<string>();
-        }
-    }
-
+    /*
     private JObject LoadJsonFromFile(string pathToFile)
     {
         AssertFileExists(pathToFile);
@@ -215,65 +213,50 @@ public class JsonEditorV2
             throw new FileNotFoundException("File not found.", pathToFile);
         }
     }
+    */
 
     public string GetSiblingValue(SiblingValueArguments args)
     {
-        var parentNode = FindParentNodeBySiblingValue(args);
+        throw new NotImplementedException();
 
-        if (parentNode == null)
-        {
-            return null;
-        }
-        else
-        {
-            var match = parentNode[args.DesiredNodeKey];
+        //var parentNode = FindParentNodeBySiblingValue(args);
 
-            if (match == null)
-            {
-                return null;
-            }
-            else
-            {
-                return match.Value<string>();
-            }
-        }
+        //if (parentNode == null)
+        //{
+        //    return null;
+        //}
+        //else
+        //{
+        //    var match = parentNode[args.DesiredNodeKey];
+
+        //    if (match == null)
+        //    {
+        //        return null;
+        //    }
+        //    else
+        //    {
+        //        return match.Value<string>();
+        //    }
+        //}
     }
 
     public void SetSiblingValue(SiblingValueArguments args)
     {
-        var parentNode = FindParentNodeBySiblingValue(args);
+        throw new NotImplementedException();
 
-        if (parentNode == null)
-        {
-            return;
-        }
-        else
-        {
-            parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
-        }
+        //var parentNode = FindParentNodeBySiblingValue(args);
+
+        //if (parentNode == null)
+        //{
+        //    return;
+        //}
+        //else
+        //{
+        //    parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
+        //}
     }
 
-    public JToken GetNode(params string[] nodes)
-    {
-        if (nodes == null || nodes.Length == 0)
-            throw new ArgumentException(
-            $"{nameof(nodes)} is null or empty.", nameof(nodes));
-
-        var query = GetJsonQueryForNodes(nodes);
-
-        return GetJToken(_json, query);
-    }
-
-    public JToken GetNodeByQuery(string query)
-    {
-        if (string.IsNullOrEmpty(query))
-        {
-            throw new ArgumentException($"{nameof(query)} is null or empty.", nameof(query));
-        }
-
-        return GetJToken(_json, query);
-    }
-
+    /*
     private JToken FindParentNodeBySiblingValue(SiblingValueArguments args)
     {
         var collectionMatch = GetJToken(
@@ -307,4 +290,5 @@ public class JsonEditorV2
             return null;
         }
     }
+    */
 }
