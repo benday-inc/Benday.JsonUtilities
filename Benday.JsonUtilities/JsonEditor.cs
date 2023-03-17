@@ -1,189 +1,244 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
-namespace Benday.JsonUtilities
+namespace Benday.JsonUtilities;
+public class JsonEditor
 {
-    public class JsonEditor
+    private readonly JsonNode _rootNode;
+    public JsonEditor(string filePath) : this(File.ReadAllText(filePath), true)
     {
-        private readonly JObject _json;
-        private readonly string _pathToFile;
 
-        public JsonEditor(string pathToFile)
+    }
+
+    public JsonEditor(string json, bool loadFromString)
+    {
+        if (loadFromString == false)
         {
-            if (string.IsNullOrEmpty(pathToFile))
-                throw new ArgumentException($"{nameof(pathToFile)} is null or empty.", nameof(pathToFile));
-
-            _pathToFile = pathToFile;
-
-            AssertFileExists(_pathToFile);
-
-            _json = LoadJsonFromFile(_pathToFile);
+            throw new InvalidOperationException("Argument not valid on this constructor.");
         }
 
-        public JsonEditor(string json, bool loadFromString)
+        if (string.IsNullOrEmpty(json))
+            throw new ArgumentException($"{nameof(json)} is null or empty.", nameof(json));
+
+        var temp = JsonObject.Parse(json);
+
+        if (temp != null)
         {
-            if (loadFromString == false)
+            _rootNode = temp;
+        }
+        else
+        {
+            throw new InvalidOperationException($"Could not parse JsonNode from json.");
+        }
+    }
+
+    public string? GetValue(params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var node = GetNode(nodes);
+
+        if (node == null)
+        {
+            return null;
+        }
+        else
+        {
+            return node.ToString();
+        }
+    }
+
+    private JsonNode? GetNode(params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var parent = _rootNode;
+
+        if (parent == null)
+        {
+            throw new InvalidOperationException($"Root node was null.");
+        }
+
+        JsonNode? node;
+        bool success = false;
+
+        for (int index = 0; index < nodes.Length; index++)
+        {
+            node = parent![nodes[index]];
+
+            if (node == null)
             {
-                throw new InvalidOperationException("Argument not valid on this constructor.");
-            }
-
-            if (string.IsNullOrEmpty(json))
-                throw new ArgumentException($"{nameof(json)} is null or empty.", nameof(json));
-
-            _pathToFile = null;
-
-            _json = JObject.Parse(json);
-        }
-
-        public JsonEditor(JObject fromObject)
-        {
-            if (fromObject == null || fromObject.Count == 0)
-            {
-                throw new ArgumentException($"{nameof(fromObject)} is null or empty.", nameof(fromObject));
-            }
-
-            _json = fromObject;
-        }
-
-        public string GetValue(params string[] nodes)
-        {
-            if (nodes == null || nodes.Length == 0)
-                throw new ArgumentException(
-                $"{nameof(nodes)} is null or empty.", nameof(nodes));
-            var query = GetJsonQueryForNodes(nodes);
-
-            return GetValueUsingQuery(query.ToString());
-        }
-
-        private string GetJsonQueryForNodes(params string[] nodes)
-        {
-            var needsPeriod = false;
-
-            var query = new StringBuilder();
-
-            foreach (var node in nodes)
-            {
-                if (needsPeriod == true)
-                {
-                    query.Append(".");
-                }
-
-                query.Append(node);
-
-                needsPeriod = true;
-            }
-
-            return query.ToString();
-        }
-
-        private void CreateNodeStructure(string[] nodes)
-        {
-            if (nodes == null || nodes.Length == 0)
-                throw new ArgumentException($"{nameof(nodes)} is null or empty.", nameof(nodes));
-
-            JObject parent = null;
-
-            for (var i = 0; i < nodes.Length; i++)
-            {
-                var current = GetJToken(_json,
-                    GetJsonQueryForNodes(nodes.Take(i + 1).ToArray()));
-
-                if (current == null)
-                {
-                    if ((nodes.Length - i) > 1)
-                    {
-                        // node is somewhere in the middle of structure
-                        var tempContainer = new JObject();
-                        var temp = new JProperty(nodes[i], tempContainer);
-
-                        if (parent == null)
-                        {
-                            _json.Add(temp);
-                        }
-                        else
-                        {
-                            parent.Add(temp);
-                        }
-
-                        parent = tempContainer;
-                    }
-                    else
-                    {
-                        // end of node structure
-                        var temp = new JProperty(nodes[i], string.Empty);
-
-                        if (parent == null)
-                        {
-                            _json.Add(temp);
-                        }
-                        else
-                        {
-                            parent.Add(temp);
-                        }
-                    }
-                }
-                else
-                {
-                    parent = (JObject)current;
-                }
-            }
-        }
-
-        public void SetValue(string nodeValue, params string[] nodes)
-        {
-            if (string.IsNullOrEmpty(nodeValue))
-                throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
-            if (nodes == null || nodes.Length == 0)
-                throw new ArgumentException(
-                $"{nameof(nodes)} is null or empty.", nameof(nodes));
-
-            var query = GetJsonQueryForNodes(nodes);
-
-            var match = GetJToken(_json, query);
-
-            if (match != null)
-            {
-                match.Replace(new JValue(nodeValue));
+                success = false;
             }
             else
             {
-                CreateNodeStructure(nodes);
-                SetValue(nodeValue, nodes);
+                success = true;
             }
 
-            WriteJsonFile();
-        }
-
-        private void WriteJsonFile()
-        {
-            if (_pathToFile != null)
+            if (success == false)
             {
-                File.WriteAllText(
-                    _pathToFile,
-                    JsonConvert.SerializeObject(_json, Formatting.Indented));
+                return null;
+            }
+            else if (index == nodes.Length - 1)
+            {
+                // found what we want
+                return node;
+            }
+            else
+            {
+                // keep searching
+                parent = node;
             }
         }
 
-        public string ToJsonString()
+        return null;
+    }
+
+    /*
+    private void CreateNodeStructure(string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException($"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        JObject parent = null;
+
+        for (var i = 0; i < nodes.Length; i++)
         {
-            return JsonConvert.SerializeObject(_json, Formatting.Indented);
+            var current = GetJToken(_json,
+                GetJsonQueryForNodes(nodes.Take(i + 1).ToArray()));
+
+            if (current == null)
+            {
+                if ((nodes.Length - i) > 1)
+                {
+                    // node is somewhere in the middle of structure
+                    var tempContainer = new JObject();
+                    var temp = new JProperty(nodes[i], tempContainer);
+
+                    if (parent == null)
+                    {
+                        _json.Add(temp);
+                    }
+                    else
+                    {
+                        parent.Add(temp);
+                    }
+
+                    parent = tempContainer;
+                }
+                else
+                {
+                    // end of node structure
+                    var temp = new JProperty(nodes[i], string.Empty);
+
+                    if (parent == null)
+                    {
+                        _json.Add(temp);
+                    }
+                    else
+                    {
+                        parent.Add(temp);
+                    }
+                }
+            }
+            else
+            {
+                parent = (JObject)current;
+            }
         }
+    }
+    */
 
-        private JToken GetJToken(JObject json, string query)
+    public void SetValue(string nodeValue, params string[] nodes)
+    {
+        if (string.IsNullOrEmpty(nodeValue))
+            throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var match = GetNode(nodes);
+
+        if (match == null)
         {
-            var match = json.SelectToken(query);
-
-            return match;
+            CreateNodeStructureAndSetValue(nodeValue, nodes);
         }
-
-        private string GetValueUsingQuery(string query)
+        else
         {
-            var match = GetJToken(
-                _json, query);
+            var propertyName = nodes.Last();
+
+            var parent = match.Parent;
+
+            if (parent == null)
+            {
+                throw new InvalidOperationException($"Parent is null");
+            }
+
+            parent[propertyName] = nodeValue;
+        }
+    }
+
+    private void CreateNodeStructureAndSetValue(string nodeValue, params string[] nodes)
+    {
+        if (string.IsNullOrEmpty(nodeValue))
+            throw new ArgumentException($"{nameof(nodeValue)} is null or empty.", nameof(nodeValue));
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var parent = _rootNode;
+
+        JsonNode? node;
+        bool success = false;
+
+        for (int index = 0; index < nodes.Length; index++)
+        {
+            node = parent![nodes[index]];
+
+            if (node != null)
+            {
+                parent = node;
+            }
+            else
+            {
+                if (index == nodes.Length - 1)
+                {
+                    // set the value
+                    parent[nodes[index]] = nodeValue;
+                }
+                else
+                {
+                    node = new JsonObject();
+
+                    parent[nodes[index]] = node;
+
+                    parent = node;
+                }
+            }
+        }
+    }
+
+    public string? GetSiblingValue(SiblingValueArguments args)
+    {
+        var parentNode = FindParentNodeBySiblingValue(args);
+
+        if (parentNode == null)
+        {
+            return null;
+        }
+        else
+        {
+            var match = parentNode[args.DesiredNodeKey];
 
             if (match == null)
             {
@@ -191,119 +246,55 @@ namespace Benday.JsonUtilities
             }
             else
             {
-                return match.Value<string>();
+                return match.ToString();
             }
         }
+    }
 
-        private JObject LoadJsonFromFile(string pathToFile)
+    public void SetSiblingValue(SiblingValueArguments args)
+    {
+        var parentNode = FindParentNodeBySiblingValue(args);
+
+        if (parentNode == null)
         {
-            AssertFileExists(pathToFile);
-
-            var jsonText = File.ReadAllText(pathToFile);
-
-            var json = JObject.Parse(jsonText);
-
-            return json;
+            return;
         }
-
-        private void AssertFileExists(string pathToFile)
+        else
         {
-            if (File.Exists(pathToFile) == false)
-            {
-                throw new FileNotFoundException("File not found.", pathToFile);
-            }
+            parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
         }
+    }
 
-        public string GetSiblingValue(SiblingValueArguments args)
+    private JsonNode? FindParentNodeBySiblingValue(SiblingValueArguments args)
+    {
+        var collectionMatch = GetNode(args.PathArguments);
+
+        if (collectionMatch == null)
         {
-            var parentNode = FindParentNodeBySiblingValue(args);
+            return null;
+        }
+        else if (collectionMatch is JsonArray)
+        {
+            var matches = (JsonArray)collectionMatch;
 
-            if (parentNode == null)
+            foreach (var item in matches)
             {
-                return null;
-            }
-            else
-            {
-                var match = parentNode[args.DesiredNodeKey];
-
-                if (match == null)
+                if (item == null)
                 {
-                    return null;
+                    continue;
                 }
-                else
+                else if (item[args.SiblingSearchKey] != null &&
+                    item[args.SiblingSearchKey]!.ToString() == args.SiblingSearchValue)
                 {
-                    return match.Value<string>();
+                    return item;
                 }
             }
+
+            return null;
         }
-
-        public void SetSiblingValue(SiblingValueArguments args)
+        else
         {
-            var parentNode = FindParentNodeBySiblingValue(args);
-
-            if (parentNode == null)
-            {
-                return;
-            }
-            else
-            {
-                parentNode[args.DesiredNodeKey] = args.DesiredNodeValue;
-            }
-        }
-
-        public JToken GetNode(params string[] nodes)
-        {
-            if (nodes == null || nodes.Length == 0)
-                throw new ArgumentException(
-                $"{nameof(nodes)} is null or empty.", nameof(nodes));
-
-            var query = GetJsonQueryForNodes(nodes);
-
-            return GetJToken(_json, query);
-        }
-
-        public JToken GetNodeByQuery(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                throw new ArgumentException($"{nameof(query)} is null or empty.", nameof(query));
-            }
-
-            return GetJToken(_json, query);
-        }
-
-        private JToken FindParentNodeBySiblingValue(SiblingValueArguments args)
-        {
-            var collectionMatch = GetJToken(
-                _json, GetJsonQueryForNodes(args.PathArguments));
-
-            if (collectionMatch == null)
-            {
-                return null;
-            }
-
-            var matches = collectionMatch.Children().ToList();
-
-            if (matches == null || matches.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                foreach (var item in matches)
-                {
-                    if (item.HasValues == true)
-                    {
-                        if (item[args.SiblingSearchKey] != null &&
-                            item[args.SiblingSearchKey].Value<string>() == args.SiblingSearchValue)
-                        {
-                            return item;
-                        }
-                    }
-                }
-
-                return null;
-            }
+            return null;
         }
     }
 }
