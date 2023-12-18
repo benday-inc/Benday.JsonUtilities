@@ -297,4 +297,24 @@ public class JsonEditor
             return null;
         }
     }
+    public string ToJson(bool indented = false)
+    {
+        if (_rootNode == null)
+        {
+            throw new InvalidOperationException($"Root node is null");
+        }
+        else
+        {
+            if (indented == true)
+            {
+                return _rootNode.ToJsonString(
+                    new JsonSerializerOptions() { WriteIndented = true});
+            }
+            else
+            {
+                return _rootNode.ToJsonString();
+            }
+        }
+        
+    }
 }

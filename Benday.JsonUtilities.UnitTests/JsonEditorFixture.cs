@@ -139,6 +139,12 @@ public class JsonEditorFixture : UnitTestBase
             "FirstLevel");
 
         Assert.AreEqual<string>(expected, actual, "Wrong value.");
+
+        var json = SystemUnderTest.ToJson(true);
+
+        Console.WriteLine(json);
+
+        StringAssert.Contains(json, expected, "Json did not contain expected string was wrong.");
     }
 
     [TestMethod]
