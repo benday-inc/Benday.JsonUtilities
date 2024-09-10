@@ -56,6 +56,31 @@ public class JsonEditor
         }
     }
 
+    public bool? GetValueAsBoolean(params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var node = GetNode(nodes);
+
+        if (node == null)
+        {
+            return null;
+        }
+        else
+        {
+            if (bool.TryParse(node.ToString(), out bool result) == false)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
+        }
+    }
+
     private JsonNode? GetNode(params string[] nodes)
     {
         if (nodes == null || nodes.Length == 0)
@@ -188,6 +213,33 @@ public class JsonEditor
         }
     }
 
+    public void SetValue(bool nodeValue, params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var match = GetNode(nodes);
+
+        if (match == null)
+        {
+            CreateNodeStructureAndSetValue(nodeValue, nodes);
+        }
+        else
+        {
+            var propertyName = nodes.Last();
+
+            var parent = match.Parent;
+
+            if (parent == null)
+            {
+                throw new InvalidOperationException($"Parent is null");
+            }
+
+            parent[propertyName] = nodeValue;
+        }
+    }
+
     private void CreateNodeStructureAndSetValue(string nodeValue, params string[] nodes)
     {
         if (string.IsNullOrEmpty(nodeValue))
@@ -199,8 +251,44 @@ public class JsonEditor
         var parent = _rootNode;
 
         JsonNode? node;
-        bool success = false;
+        
+        for (int index = 0; index < nodes.Length; index++)
+        {
+            node = parent![nodes[index]];
 
+            if (node != null)
+            {
+                parent = node;
+            }
+            else
+            {
+                if (index == nodes.Length - 1)
+                {
+                    // set the value
+                    parent[nodes[index]] = nodeValue;
+                }
+                else
+                {
+                    node = new JsonObject();
+
+                    parent[nodes[index]] = node;
+
+                    parent = node;
+                }
+            }
+        }
+    }
+
+    private void CreateNodeStructureAndSetValue(bool nodeValue, params string[] nodes)
+    {
+        if (nodes == null || nodes.Length == 0)
+            throw new ArgumentException(
+            $"{nameof(nodes)} is null or empty.", nameof(nodes));
+
+        var parent = _rootNode;
+
+        JsonNode? node;
+        
         for (int index = 0; index < nodes.Length; index++)
         {
             node = parent![nodes[index]];
@@ -308,13 +396,13 @@ public class JsonEditor
             if (indented == true)
             {
                 return _rootNode.ToJsonString(
-                    new JsonSerializerOptions() { WriteIndented = true});
+                    new JsonSerializerOptions() { WriteIndented = true });
             }
             else
             {
                 return _rootNode.ToJsonString();
             }
         }
-        
+
     }
 }

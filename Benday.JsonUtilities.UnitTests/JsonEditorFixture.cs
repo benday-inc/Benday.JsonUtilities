@@ -102,6 +102,42 @@ public class JsonEditorFixture : UnitTestBase
     }
 
     [TestMethod]
+    public void Json_NewValue_SetBooleanValue_True_OneLevel()
+    {
+        InitializeWithEmptyJson();
+
+        var expected = true;
+
+        SystemUnderTest.SetValue(
+            expected, "BooleanValue");
+
+        var actual = SystemUnderTest.GetValueAsBoolean(
+            "BooleanValue");
+
+        Assert.IsNotNull(actual, "Return value should not be null");
+
+        Assert.AreEqual<bool?>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
+    public void Json_NewValue_SetBooleanValue_False_OneLevel()
+    {
+        InitializeWithEmptyJson();
+
+        var expected = false;
+
+        SystemUnderTest.SetValue(
+            expected, "BooleanValue");
+
+        var actual = SystemUnderTest.GetValueAsBoolean(
+            "BooleanValue");
+
+        Assert.IsNotNull(actual, "Return value should not be null");
+
+        Assert.AreEqual<bool?>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
     public void Json_NewValue_SetValue_TwoLevels()
     {
         InitializeWithEmptyJson();
