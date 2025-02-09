@@ -7,16 +7,16 @@
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Title>Benday.JsonUtilities</Title>
         <Description>A collection of classes for working with JSON.</Description>
-        <Copyright>2023</Copyright>
+        <Copyright>2025</Copyright>
         <PackageProjectUrl>https://github.com/benday-inc/Benday.JsonUtilities</PackageProjectUrl>
         <RepositoryUrl>https://github.com/benday-inc/Benday.JsonUtilities.git</RepositoryUrl>
         <PackageIcon>bdc_mark_128_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <AssemblyVersion>5.0.0.0</AssemblyVersion>
-        <Version>$(VersionPrefix)5.0.0</Version>
+        <AssemblyVersion>5.1.0.0</AssemblyVersion>
+        <Version>$(VersionPrefix)5.1.0</Version>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReleaseNotes>            
-            v5.0 - Upgraded System.Text.Json dependency to .net core 8; Added support for setting json values as boolean values
+        <PackageReleaseNotes>v5.1 - Added ability to set json values as int using JsonEditor;            
+v5.0 - Upgraded System.Text.Json dependency to .net core 8; Added support for setting json values as boolean values
         </PackageReleaseNotes>
     </PropertyGroup>
     <ItemGroup>
