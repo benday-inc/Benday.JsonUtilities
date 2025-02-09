@@ -12,7 +12,7 @@ public class JsonEditorFixture : UnitTestBase
         _PathToSampleConfigFile = null;
     }
 
-    string _PathToSampleConfigFile;
+    private string? _PathToSampleConfigFile;
 
     private void InitializeWithEmptyJson()
     {
@@ -30,7 +30,7 @@ public class JsonEditorFixture : UnitTestBase
         _SystemUnderTest = new JsonEditor(_PathToSampleConfigFile);
     }   
 
-    private JsonEditor _SystemUnderTest;
+    private JsonEditor? _SystemUnderTest;
     public JsonEditor SystemUnderTest
     {
         get
@@ -117,6 +117,26 @@ public class JsonEditorFixture : UnitTestBase
         Assert.IsNotNull(actual, "Return value should not be null");
 
         Assert.AreEqual<bool?>(expected, actual, "Wrong value.");
+    }
+
+    [TestMethod]
+    public void Json_NewValue_SetInt32Value_1234_OneLevel()
+    {
+        InitializeWithEmptyJson();
+
+        var expected = 1234;
+        var expectedPropertyName = "Int32Value";
+
+        SystemUnderTest.SetValue(
+            expected, expectedPropertyName);
+
+        var actual = 
+            SystemUnderTest.GetValueAsInt32(
+                expectedPropertyName);
+
+        Assert.IsNotNull(actual, "Return value should not be null");
+
+        Assert.AreEqual<int?>(expected, actual, "Wrong value.");
     }
 
     [TestMethod]

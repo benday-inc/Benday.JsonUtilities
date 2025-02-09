@@ -1,8 +1,11 @@
-﻿namespace Benday.JsonUtilities.UnitTests;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Benday.JsonUtilities.UnitTests;
 
 public static class UnitTestUtility
 {
-    public static void AssertIsNotNullOrEmptyString(string actual, string itemName)
+    
+    public static void AssertIsNotNullOrEmptyString(string? actual, string itemName)
     {
         Assert.IsNotNull(actual, "Value for '{0}' should not be null.", itemName);
 
