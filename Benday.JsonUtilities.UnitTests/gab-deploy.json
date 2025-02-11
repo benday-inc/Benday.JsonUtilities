@@ -1,0 +1,753 @@
+{
+  "source": "userInterface",
+  "revision": 32,
+  "description": null,
+  "createdBy": {
+    "displayName": "Benjamin Day",
+    "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+    "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+    "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+    "uniqueName": "benday@benday.com",
+    "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+    "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+  },
+  "createdOn": "2018-07-03T14:52:36.887Z",
+  "modifiedBy": {
+    "displayName": "Benjamin Day",
+    "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+    "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+    "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+    "uniqueName": "benday@benday.com",
+    "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+    "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+  },
+  "modifiedOn": "2021-01-28T15:10:27.157Z",
+  "isDeleted": false,
+  "isDisabled": false,
+  "lastRelease": {
+    "id": 48,
+    "name": "Release-39",
+    "artifacts": [],
+    "_links": {},
+    "description": "",
+    "releaseDefinition": {
+      "id": 2,
+      "projectReference": null,
+      "_links": {}
+    },
+    "createdOn": "2021-01-28T15:10:47.69Z",
+    "createdBy": {
+      "displayName": "Benjamin Day",
+      "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+      "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+      "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+      "uniqueName": "benday@benday.com",
+      "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+      "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+    }
+  },
+  "variables": {},
+  "variableGroups": [],
+  "environments": [
+    {
+      "id": 3,
+      "name": "test",
+      "rank": 1,
+      "owner": {
+        "displayName": "Benjamin Day",
+        "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+        "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+        "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+        "uniqueName": "benday@benday.com",
+        "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+        "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+      },
+      "variables": { "ConnectionString": { "value": "Server=tcp:benday.database.windows.net,1433;Initial Catalog=presidents-test;Persist Security Info=False;User ID=bendayadmin;Password=kunky1Furniture@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" } },
+      "variableGroups": [],
+      "preDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 8
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": false,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": "beforeGates"
+        }
+      },
+      "deployStep": { "id": 11 },
+      "postDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": false,
+            "isNotificationOn": false,
+            "approver": {
+              "displayName": "Benjamin Day",
+              "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+              "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+              "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+              "uniqueName": "benday@benday.com",
+              "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+              "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+            },
+            "id": 15
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": true,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": "afterSuccessfulGates"
+        }
+      },
+      "deployPhases": [
+        {
+          "deploymentInput": {
+            "parallelExecution": { "parallelExecutionType": "none" },
+            "agentSpecification": { "identifier": "windows-2019" },
+            "skipArtifactsDownload": false,
+            "artifactsDownloadInput": {
+              "downloadInputs": [
+                {
+                  "alias": "gab-presidents-CI",
+                  "artifactType": "Build",
+                  "artifactDownloadMode": "All",
+                  "artifactItems": []
+                }
+              ]
+            },
+            "queueId": 461,
+            "demands": [],
+            "enableAccessToken": false,
+            "timeoutInMinutes": 0,
+            "jobCancelTimeoutInMinutes": 1,
+            "condition": "succeeded()",
+            "overrideInputs": {}
+          },
+          "rank": 1,
+          "phaseType": "agentBasedDeployment",
+          "name": "Run on agent",
+          "refName": null,
+          "workflowTasks": [
+            {
+              "environment": {},
+              "taskId": "c23a6305-299e-4871-8cba-1bca894d21dc",
+              "version": "1.*",
+              "name": "Update build version message",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "filename": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/appsettings.json",
+                "numberOfLevels": "2",
+                "keyname1": "PresidentsSettings",
+                "keyname2": "BuildVersionMessage",
+                "keyname3": "",
+                "valueToSet": "Build $(Release.Artifacts.gab-presidents-CI.BuildNumber) - $(Release.DefinitionName) - $(Release.ReleaseName)"
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "252b8a23-b221-483a-9cf3-74dac5a091b0",
+              "version": "1.*",
+              "name": "Update connection string 'default'",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "filename": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/appsettings.json",
+                "keyname": "default",
+                "connectionstringvalue": "$(ConnectionString)"
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "21d5c118-076b-4477-9421-e017fd9fd7e4",
+              "version": "1.*",
+              "name": "Deploy EF Core migrations",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "migrationsDll": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.Api.dll",
+                "migrationsNamespace": "Benday.Presidents.Api",
+                "startupDll": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.dll",
+                "depsJsonFile": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.deps.json",
+                "runtimeConfigFile": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.runtimeconfig.json",
+                "dbContextClassName": "PresidentsDbContext",
+                "deployMigrationByName": "false",
+                "migrationName": ""
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "497d490f-eea7-4f2b-ab94-48d9c1acdcb1",
+              "version": "4.*",
+              "name": "Deploy Azure App Service",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": null,
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "ConnectionType": "AzureRM",
+                "ConnectedServiceName": "$(Parameters.ConnectedServiceName)",
+                "PublishProfilePath": "$(System.DefaultWorkingDirectory)/**/*.pubxml",
+                "PublishProfilePassword": "",
+                "WebAppKind": "$(Parameters.WebAppKind)",
+                "WebAppName": "$(Parameters.WebAppName)",
+                "DeployToSlotOrASEFlag": "true",
+                "ResourceGroupName": "rg-bdc-web-v3",
+                "SlotName": "test",
+                "DockerNamespace": "$(Parameters.DockerNamespace)",
+                "DockerRepository": "$(Parameters.DockerRepository)",
+                "DockerImageTag": "$(Build.BuildId)",
+                "VirtualApplication": "",
+                "Package": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi",
+                "RuntimeStack": "$(Parameters.RuntimeStack)",
+                "RuntimeStackFunction": "",
+                "StartupCommand": "",
+                "ScriptType": "",
+                "InlineScript": "",
+                "ScriptPath": "",
+                "WebConfigParameters": "",
+                "AppSettings": "",
+                "ConfigurationSettings": "",
+                "UseWebDeploy": "true",
+                "DeploymentType": "webDeploy",
+                "TakeAppOfflineFlag": "true",
+                "SetParametersFile": "",
+                "RemoveAdditionalFilesFlag": "true",
+                "ExcludeFilesFromAppDataFlag": "false",
+                "AdditionalArguments": "",
+                "RenameFilesFlag": "true",
+                "XmlTransformation": "false",
+                "XmlVariableSubstitution": "false",
+                "JSONFiles": ""
+              }
+            }
+          ]
+        }
+      ],
+      "environmentOptions": {
+        "emailNotificationType": "OnlyOnFailure",
+        "emailRecipients": "release.environment.owner;release.creator",
+        "skipArtifactsDownload": false,
+        "timeoutInMinutes": 0,
+        "enableAccessToken": false,
+        "publishDeploymentStatus": true,
+        "badgeEnabled": false,
+        "autoLinkWorkItems": false,
+        "pullRequestDeploymentEnabled": false
+      },
+      "demands": [],
+      "conditions": [
+        {
+          "name": "ReleaseStarted",
+          "conditionType": "event",
+          "value": "",
+          "result": null
+        }
+      ],
+      "executionPolicy": {
+        "concurrencyCount": 1,
+        "queueDepthCount": 0
+      },
+      "schedules": [],
+      "currentRelease": {
+        "id": 48,
+        "url": "https://vsrm.dev.azure.com/benday/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/_apis/Release/releases/48",
+        "_links": {}
+      },
+      "retentionPolicy": {
+        "daysToKeep": 30,
+        "releasesToKeep": 3,
+        "retainBuild": true
+      },
+      "processParameters": {
+        "inputs": [
+          {
+            "aliases": [],
+            "options": {},
+            "properties": {},
+            "name": "ConnectedServiceName",
+            "label": "Azure subscription",
+            "defaultValue": "441bbd49-684e-4de6-9c5c-3f8d381150c2",
+            "required": true,
+            "type": "connectedService:AzureRM",
+            "helpMarkDown": "Select the Azure Resource Manager subscription for the deployment.",
+            "visibleRule": "",
+            "groupName": ""
+          },
+          {
+            "aliases": [],
+            "options": {
+              "app": "Web App",
+              "applinux": "Linux App",
+              "functionapp": "Function App",
+              "api": "API App",
+              "mobileapp": "Mobile App"
+            },
+            "properties": { "EditableOptions": "false" },
+            "name": "WebAppKind",
+            "label": "App type",
+            "defaultValue": "applinux",
+            "type": "pickList",
+            "helpMarkDown": "",
+            "groupName": ""
+          },
+          {
+            "aliases": [],
+            "options": {},
+            "properties": { "EditableOptions": "True" },
+            "name": "WebAppName",
+            "label": "App service name",
+            "defaultValue": "presidents-v3",
+            "required": true,
+            "type": "pickList",
+            "helpMarkDown": "Enter or select the name of an existing Azure App Service.",
+            "visibleRule": "",
+            "groupName": ""
+          },
+          {
+            "aliases": [],
+            "options": {},
+            "properties": {},
+            "name": "DockerNamespace",
+            "label": "Registry or Namespace",
+            "defaultValue": "",
+            "required": true,
+            "type": "string",
+            "helpMarkDown": "A globally unique top-level domain name for your specific registry or namespace.<br/> Note: Fully qualified image name will be of the format: '<b>`<registry or namespace`></b>/`<repository`>:`<tag`>'. For example, '<b>myregistry.azurecr.io</b>/nginx:latest'.",
+            "visibleRule": "WebAppKind = applinux && ImageSource = Registry",
+            "groupName": ""
+          },
+          {
+            "aliases": [],
+            "options": {},
+            "properties": {},
+            "name": "DockerRepository",
+            "label": "Repository",
+            "defaultValue": "",
+            "required": true,
+            "type": "string",
+            "helpMarkDown": "Name of the repository where the container images are stored.<br/> Note: Fully qualified image name will be of the format: '`<registry or namespace`>/<b>`<repository`></b>:`<tag`>'. For example, 'myregistry.azurecr.io/<b>nginx</b>:latest'.",
+            "visibleRule": "WebAppKind = applinux && ImageSource = Registry",
+            "groupName": ""
+          },
+          {
+            "aliases": [],
+            "options": {
+              "node|4.4": "Node.js 4.4",
+              "node|4.5": "Node.js 4.5",
+              "node|6.2": "Node.js 6.2",
+              "node|6.6": "Node.js 6.6",
+              "node|6.9": "Node.js 6.9",
+              "node|6.10": "Node.js 6.10",
+              "node|6.11": "Node.js 6.11",
+              "node|8.0": "Node.js 8.0",
+              "node|8.1": "Node.js 8.1",
+              "php|5.6": "PHP 5.6",
+              "php|7.0": "PHP 7.0",
+              "dotnetcore|1.0": ".NET Core 1.0",
+              "dotnetcore|1.1": ".NET Core 1.1",
+              "dotnetcore|2.0": ".NET Core 2.0",
+              "ruby|2.3": "Ruby 2.3"
+            },
+            "properties": {},
+            "name": "RuntimeStack",
+            "label": "Runtime Stack",
+            "defaultValue": "dotnetcore|2.0",
+            "required": true,
+            "type": "pickList",
+            "helpMarkDown": "Select the framework and version.",
+            "visibleRule": "WebAppKind = applinux && ImageSource = Builtin"
+          }
+        ],
+        "dataSourceBindings": [
+          {
+            "dataSourceName": "AzureRMWebAppNamesByType",
+            "parameters": { "WebAppKind": "$(WebAppKind)" },
+            "endpointId": "$(ConnectedServiceName)",
+            "target": "WebAppName"
+          }
+        ]
+      },
+      "properties": {
+        "LinkBoardsWorkItems": {
+          "$type": "System.String",
+          "$value": "False"
+        }
+      },
+      "preDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "postDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "environmentTriggers": [],
+      "badgeUrl": "https://vsrm.dev.azure.com/benday/_apis/public/Release/badge/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/2/3"
+    },
+    {
+      "id": 4,
+      "name": "production",
+      "rank": 2,
+      "owner": {
+        "displayName": "Benjamin Day",
+        "url": "https://spsprodeus22.vssps.visualstudio.com/A6a73db6d-a202-4c3a-ae2c-be1d2a3875c3/_apis/Identities/a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+        "_links": { "avatar": { "href": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw" } },
+        "id": "a2fbe5bc-7f35-4df7-b308-395bf4eaf8d9",
+        "uniqueName": "benday@benday.com",
+        "imageUrl": "https://dev.azure.com/benday/_apis/GraphProfile/MemberAvatars/aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw",
+        "descriptor": "aad.ZjM3ZWFkZTYtOWI1ZS03NTZlLWExYTMtZTU2NDIxYWI3MzYw"
+      },
+      "variables": { "ConnectionString": { "value": "Server=tcp:benday.database.windows.net,1433;Initial Catalog=presidents-prod;Persist Security Info=False;User ID=bendayadmin;Password=kunky1Furniture@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" } },
+      "variableGroups": [],
+      "preDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 14
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": false,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": "beforeGates"
+        }
+      },
+      "deployStep": { "id": 10 },
+      "postDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 13
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": true,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": "afterSuccessfulGates"
+        }
+      },
+      "deployPhases": [
+        {
+          "deploymentInput": {
+            "parallelExecution": { "parallelExecutionType": "none" },
+            "agentSpecification": { "identifier": "windows-2019" },
+            "skipArtifactsDownload": false,
+            "artifactsDownloadInput": { "downloadInputs": [] },
+            "queueId": 461,
+            "demands": [],
+            "enableAccessToken": false,
+            "timeoutInMinutes": 0,
+            "jobCancelTimeoutInMinutes": 1,
+            "condition": "succeeded()",
+            "overrideInputs": {}
+          },
+          "rank": 1,
+          "phaseType": "agentBasedDeployment",
+          "name": "Run on agent",
+          "refName": null,
+          "workflowTasks": [
+            {
+              "environment": {},
+              "taskId": "252b8a23-b221-483a-9cf3-74dac5a091b0",
+              "version": "1.*",
+              "name": "Update connection string 'default'",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "filename": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/appsettings.json",
+                "keyname": "default",
+                "connectionstringvalue": "$(ConnectionString)"
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "21d5c118-076b-4477-9421-e017fd9fd7e4",
+              "version": "1.*",
+              "name": "Deploy EF Core migrations",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "migrationsDll": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.Api.dll",
+                "migrationsNamespace": "Benday.Presidents.Api",
+                "startupDll": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.dll",
+                "depsJsonFile": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.deps.json",
+                "runtimeConfigFile": "$(System.DefaultWorkingDirectory)/gab-presidents-CI/drop/for-deploy/website/Benday.Presidents.WebUi/Benday.Presidents.WebUi.runtimeconfig.json",
+                "dbContextClassName": "PresidentsDbContext",
+                "deployMigrationByName": "false",
+                "migrationName": ""
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "f045e430-8704-11e6-968f-e717e6411619",
+              "version": "0.*",
+              "name": "Swap Slots: presidents-v3",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "ConnectedServiceName": "441bbd49-684e-4de6-9c5c-3f8d381150c2",
+                "Action": "Swap Slots",
+                "WebAppName": "presidents-v3",
+                "SpecifySlot": "false",
+                "ResourceGroupName": "rg-bdc-web-v3",
+                "SourceSlot": "test",
+                "SwapWithProduction": "true",
+                "TargetSlot": "",
+                "PreserveVnet": "false",
+                "Slot": "production",
+                "ExtensionsList": "",
+                "OutputVariable": "",
+                "AppInsightsResourceGroupName": "",
+                "ApplicationInsightsResourceName": "",
+                "ApplicationInsightsWebTestName": ""
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "46e4be58-730b-4389-8a2f-ea10b3e5e815",
+              "version": "1.*",
+              "name": "Azure CLI ",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "retryCountOnTaskFailure": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "connectedServiceNameARM": "441bbd49-684e-4de6-9c5c-3f8d381150c2",
+                "scriptLocation": "inlineScript",
+                "scriptPath": "",
+                "inlineScript": "REM calling azure cli\ncall az webapp config appsettings set --settings ConnectionStrings__default=\"$(ConnectionString)\" -g rg-bdc-web-v3 -n presidents-v --subscription \"Microsoft Azure Sponsorship\"\n",
+                "args": "",
+                "addSpnToEnvironment": "false",
+                "useGlobalConfig": "false",
+                "cwd": "",
+                "failOnStandardError": "false"
+              }
+            }
+          ]
+        }
+      ],
+      "environmentOptions": {
+        "emailNotificationType": "OnlyOnFailure",
+        "emailRecipients": "release.environment.owner;release.creator",
+        "skipArtifactsDownload": false,
+        "timeoutInMinutes": 0,
+        "enableAccessToken": false,
+        "publishDeploymentStatus": true,
+        "badgeEnabled": false,
+        "autoLinkWorkItems": false,
+        "pullRequestDeploymentEnabled": false
+      },
+      "demands": [],
+      "conditions": [
+        {
+          "name": "test",
+          "conditionType": "environmentState",
+          "value": "4",
+          "result": null
+        }
+      ],
+      "executionPolicy": {
+        "concurrencyCount": 1,
+        "queueDepthCount": 0
+      },
+      "schedules": [],
+      "currentRelease": {
+        "id": 40,
+        "url": "https://vsrm.dev.azure.com/benday/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/_apis/Release/releases/40",
+        "_links": {}
+      },
+      "retentionPolicy": {
+        "daysToKeep": 30,
+        "releasesToKeep": 3,
+        "retainBuild": true
+      },
+      "processParameters": {
+        "dataSourceBindings": [
+          {
+            "dataSourceName": "AzureRMWebAppNamesByType",
+            "parameters": { "WebAppKind": "$(WebAppKind)" },
+            "endpointId": "$(ConnectedServiceName)",
+            "target": "WebAppName"
+          }
+        ]
+      },
+      "properties": {
+        "LinkBoardsWorkItems": {
+          "$type": "System.String",
+          "$value": "False"
+        }
+      },
+      "preDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "postDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "environmentTriggers": [],
+      "badgeUrl": "https://vsrm.dev.azure.com/benday/_apis/public/Release/badge/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/2/4"
+    }
+  ],
+  "artifacts": [
+    {
+      "sourceId": "83cebfa9-c45c-4224-bcd9-bd1ec683cf49:49",
+      "type": "Build",
+      "alias": "gab-presidents-CI",
+      "definitionReference": {
+        "artifactSourceDefinitionUrl": {
+          "id": "https://dev.azure.com/benday/_permalink/_build/index?collectionId=f6e291cb-beda-4059-96d0-4dfb8b497e20&projectId=83cebfa9-c45c-4224-bcd9-bd1ec683cf49&definitionId=49",
+          "name": ""
+        },
+        "defaultVersionBranch": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionSpecific": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionTags": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionType": {
+          "id": "latestType",
+          "name": "Latest"
+        },
+        "definition": {
+          "id": "49",
+          "name": "ci-build"
+        },
+        "definitions": {
+          "id": "",
+          "name": ""
+        },
+        "IsMultiDefinitionType": {
+          "id": "False",
+          "name": "False"
+        },
+        "project": {
+          "id": "83cebfa9-c45c-4224-bcd9-bd1ec683cf49",
+          "name": "gab-presidents-20180421"
+        },
+        "repository": {
+          "id": "",
+          "name": ""
+        }
+      },
+      "isPrimary": true,
+      "isRetained": false
+    }
+  ],
+  "triggers": [
+    {
+      "artifactAlias": "gab-presidents-CI",
+      "triggerConditions": [],
+      "triggerType": "artifactSource"
+    }
+  ],
+  "releaseNameFormat": "Release-$(rev:r)",
+  "tags": [],
+  "properties": {
+    "DefinitionCreationSource": {
+      "$type": "System.String",
+      "$value": "ReleaseClone"
+    },
+    "IntegrateBoardsWorkItems": {
+      "$type": "System.String",
+      "$value": "False"
+    },
+    "IntegrateJiraWorkItems": {
+      "$type": "System.String",
+      "$value": "false"
+    }
+  },
+  "id": 2,
+  "name": "deploy",
+  "path": "\\",
+  "projectReference": null,
+  "url": "https://vsrm.dev.azure.com/benday/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/_apis/Release/definitions/2",
+  "_links": {
+    "self": { "href": "https://vsrm.dev.azure.com/benday/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/_apis/Release/definitions/2" },
+    "web": { "href": "https://dev.azure.com/benday/83cebfa9-c45c-4224-bcd9-bd1ec683cf49/_release?definitionId=2" }
+  }
+}

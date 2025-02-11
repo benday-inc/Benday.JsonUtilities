@@ -494,4 +494,25 @@ public class JsonEditor
         }
 
     }
+    public JsonArray? GetArray(string propertyName)
+    {
+        // get reference to array property
+        var array = _rootNode[propertyName];
+
+        if (array == null)
+        {
+            return null;
+        }
+        else
+        {
+            if (array is JsonArray valueAsArray)
+            {
+                return valueAsArray;
+            }
+            else
+            {
+                return null;
+            }
+        }
+    }
 }
