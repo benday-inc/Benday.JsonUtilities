@@ -12,10 +12,11 @@
         <RepositoryUrl>https://github.com/benday-inc/Benday.JsonUtilities.git</RepositoryUrl>
         <PackageIcon>bdc_mark_128_128.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <AssemblyVersion>5.1.0.0</AssemblyVersion>
-        <Version>$(VersionPrefix)5.1.0</Version>
+        <AssemblyVersion>5.2.0.0</AssemblyVersion>
+        <Version>$(VersionPrefix)5.2.0</Version>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReleaseNotes>v5.1 - Added ability to set json values as int using JsonEditor;            
+        <PackageReleaseNotes>v5.2 - made JsonEditor's root node public; created extension methods for accessing json nodes;
+v5.1 - Added ability to set json values as int using JsonEditor;            
 v5.0 - Upgraded System.Text.Json dependency to .net core 8; Added support for setting json values as boolean values
         </PackageReleaseNotes>
     </PropertyGroup>
