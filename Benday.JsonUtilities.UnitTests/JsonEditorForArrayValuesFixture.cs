@@ -50,7 +50,7 @@ public class JsonEditorForArrayValuesFixture
         var expectedCount = 2;
 
         // act
-        var actual = SystemUnderTest.GetArray("environments");
+        var actual = SystemUnderTest.Root.GetArray("environments");
 
         // assert
         Assert.IsNotNull(actual, "Actual is null.");
@@ -66,7 +66,7 @@ public class JsonEditorForArrayValuesFixture
         var expectedName = "test";
 
         // act
-        var actual = SystemUnderTest.GetArrayItem(
+        var actual = SystemUnderTest.Root.GetArrayItem(
             "environments", "id", expectedId);
 
         // assert
@@ -88,7 +88,7 @@ public class JsonEditorForArrayValuesFixture
         var expectedName = "production";
 
         // act
-        var actual = SystemUnderTest.GetArrayItem(
+        var actual = SystemUnderTest.Root.GetArrayItem(
             "environments", "id", expectedId);
 
         // assert

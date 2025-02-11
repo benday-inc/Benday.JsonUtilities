@@ -11,6 +11,9 @@ namespace Benday.JsonUtilities;
 public class JsonEditor
 {
     private readonly JsonNode _rootNode;
+
+    public JsonNode Root => _rootNode.Root;
+
     public JsonEditor(string filePath) : this(File.ReadAllText(filePath), true)
     {
 
@@ -494,79 +497,6 @@ public class JsonEditor
         }
 
     }
-    public JsonArray? GetArray(string propertyName)
-    {
-        // get reference to array property
-        var array = _rootNode[propertyName];
+    
 
-        if (array == null)
-        {
-            return null;
-        }
-        else
-        {
-            if (array is JsonArray valueAsArray)
-            {
-                return valueAsArray;
-            }
-            else
-            {
-                return null;
-            }
-        }
-    }
-    public JsonNode? GetArrayItem(
-        string arrayPropertyName, 
-        string searchPropertyName, string searchPropertyValue)
-    {
-        var array = GetArray(arrayPropertyName);
-
-        if (array == null)
-        {
-            return null;
-        }
-        else
-        {
-            foreach (var item in array)
-            {
-                if (item == null)
-                {
-                    continue;
-                }
-                else if (item[searchPropertyName] != null &&
-                    item[searchPropertyName]!.ToString() == searchPropertyValue)
-                {
-                    return item;
-                }
-            }
-
-            return null;
-        }
-    }
-}
-
-
-
-public static class JsonExtensionMethods
-{
-    public static string GetString(this JsonNode? node, string propertyName)
-    {
-        if (node == null)
-        {
-            return string.Empty;
-        }
-        else
-        {
-            var match = node[propertyName];
-
-            if (match == null)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                return match.ToString();
-            }
-        }
-    }
 }
