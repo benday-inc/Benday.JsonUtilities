@@ -58,5 +58,48 @@ public class JsonEditorForArrayValuesFixture
         Assert.AreEqual(expectedCount, actual.Count, "Count is wrong.");
     }
 
+    [TestMethod]
+    public void GetChildByAttributeValue_ById_FirstItem()
+    {
+        // arrange
+        var expectedId = "3";
+        var expectedName = "test";
+
+        // act
+        var actual = SystemUnderTest.GetArrayItem(
+            "environments", "id", expectedId);
+
+        // assert
+        Assert.IsNotNull(actual, "Actual is null.");
+
+
+        var actualId = actual.GetString("id");
+        var actualName = actual.GetString("name");
+
+        Assert.AreEqual(expectedId, actualId, "Id is wrong.");
+        Assert.AreEqual(expectedName, actualName, "Name is wrong.");
+    }
+
+    [TestMethod]
+    public void GetChildByAttributeValue_ById_SecondItem()
+    {
+        // arrange
+        var expectedId = "4";
+        var expectedName = "production";
+
+        // act
+        var actual = SystemUnderTest.GetArrayItem(
+            "environments", "id", expectedId);
+
+        // assert
+        Assert.IsNotNull(actual, "Actual is null.");
+
+        var actualId = actual.GetString("id");
+        var actualName = actual.GetString("name");
+
+        Assert.AreEqual(expectedId, actualId, "Id is wrong.");
+        Assert.AreEqual(expectedName, actualName, "Name is wrong.");
+    }
+
 
 }
