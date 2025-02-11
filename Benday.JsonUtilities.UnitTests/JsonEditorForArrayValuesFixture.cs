@@ -102,7 +102,7 @@ public class JsonEditorForArrayValuesFixture
     }
 
     [TestMethod]
-    public void GetQueueId()
+    public void GetQueueId_Environment3()
     {
         var expectedQueueId = 461;
 
@@ -116,6 +116,91 @@ public class JsonEditorForArrayValuesFixture
         var queueId = deploymentInput?.GetInt32("queueId");
 
         Assert.AreEqual(expectedQueueId, queueId, "QueueId is wrong.");
+    }
+
+    [TestMethod]
+    public void GetQueueId_Environment4()
+    {
+        var expectedQueueId = 461;
+
+        var environment = SystemUnderTest.Root.GetArrayItem(
+            "environments", "id", "4");
+
+        var deployPhases = environment.GetArray("deployPhases");
+
+        var deploymentInput = deployPhases.FirstOrDefaultWithPropertyName("deploymentInput");
+
+        var queueId = deploymentInput?.GetInt32("queueId");
+
+        Assert.AreEqual(expectedQueueId, queueId, "QueueId is wrong.");
+    }
+
+    [TestMethod]
+    public void SetQueueId_Environment3()
+    {
+        var expectedQueueId = 461;
+
+        var environment = SystemUnderTest.Root.GetArrayItem(
+            "environments", "id", "3");
+
+        var deployPhases = environment.GetArray("deployPhases");
+
+        var deploymentInput = deployPhases.FirstOrDefaultWithPropertyName("deploymentInput");
+
+        Assert.IsNotNull(deploymentInput);
+
+        var queueId = deploymentInput?.GetInt32("queueId");
+
+        Assert.AreEqual(expectedQueueId, queueId, "QueueId is wrong.");
+
+        var newQueueId = 999;
+
+        deploymentInput!["queueId"] = newQueueId;
+
+        var actualQueueId = deploymentInput.GetInt32("queueId");
+
+        Assert.AreEqual(newQueueId, actualQueueId, "QueueId is wrong.");
+
+        
+        var json = SystemUnderTest.ToJson(true);
+
+        Console.WriteLine(json);
+
+
+    }
+
+    [TestMethod]
+    public void SetQueueId_Environment4()
+    {
+        var expectedQueueId = 461;
+
+        var environment = SystemUnderTest.Root.GetArrayItem(
+            "environments", "id", "4");
+
+        var deployPhases = environment.GetArray("deployPhases");
+
+        var deploymentInput = deployPhases.FirstOrDefaultWithPropertyName("deploymentInput");
+
+        Assert.IsNotNull(deploymentInput);
+
+        var queueId = deploymentInput?.GetInt32("queueId");
+
+        Assert.AreEqual(expectedQueueId, queueId, "QueueId is wrong.");
+
+        var newQueueId = 999;
+
+        deploymentInput!["queueId"] = newQueueId;
+
+        var actualQueueId = deploymentInput.GetInt32("queueId");
+
+        Assert.AreEqual(newQueueId, actualQueueId, "QueueId is wrong.");
+
+
+        var json = SystemUnderTest.ToJson(true);
+
+        Console.WriteLine(json);
+
+
     }
 
 }
