@@ -101,5 +101,21 @@ public class JsonEditorForArrayValuesFixture
         Assert.AreEqual(expectedName, actualName, "Name is wrong.");
     }
 
+    [TestMethod]
+    public void GetQueueId()
+    {
+        var expectedQueueId = 461;
+
+        var environment = SystemUnderTest.Root.GetArrayItem(
+            "environments", "id", "3");
+
+        var deployPhases = environment.GetArray("deployPhases");
+
+        var deploymentInput = deployPhases.FirstOrDefaultWithPropertyName("deploymentInput");
+
+        var queueId = deploymentInput?.GetInt32("queueId");
+
+        Assert.AreEqual(expectedQueueId, queueId, "QueueId is wrong.");
+    }
 
 }
